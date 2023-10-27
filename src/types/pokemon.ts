@@ -1,6 +1,6 @@
 export interface PokemonPage {
-  results: { name: string }[];
-  naxt: string | null;
+  results: { name: string; url: string }[];
+  next: string | null;
   previous: string | null;
 }
 
@@ -20,5 +20,5 @@ export interface Pokemon {
       };
     };
   };
-  url: string;
+  url: any;
 }

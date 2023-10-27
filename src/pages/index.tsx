@@ -1,23 +1,52 @@
-import { useRouter } from "next/router";
-import { useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-import * as PokemonApi from "@/pages/api/pokemon-api";
 import PokemonEntry from "@/components/pokemonEntry";
 import styles from "@/styles/Home.module.scss";
+import { useInView } from "react-intersection-observer";
+import { getPokemonPage } from "@/pages/api/pokemon-api";
 
 const Home = () => {
-  const router = useRouter();
+  const [ref, isView] = useInView();
+  const [input, setInput] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
+  const [hasLoaded, setHasLoaded] = useState<Boolean>(false);
 
-  const page = parseInt(router.query.page?.toString() || "1");
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
+    useInfiniteQuery(
+      "getPokemonPage",
+      ({ pageParam = 1 }) => getPokemonPage(pageParam),
+      {
+        getNextPageParam: (lastPage, allPages) => {
+          if (lastPage.results.length === 20) {
+            return allPages.length + 1;
+          }
+          return undefined;
+        },
+      }
+    );
 
-  const { data, isLoading, isError } = useQuery(["getPokemonPage", page], () =>
-    PokemonApi.getPokemonPage(page)
-  );
+  // 무한 스크롤
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 100
+      ) {
+        if (!isFetchingNextPage && hasNextPage) {
+          fetchNextPage();
+        }
+      }
+    };
 
-  if (isLoading) return <div>Loading...</div>;
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isFetchingNextPage, hasNextPage, fetchNextPage]);
 
-  if (isError) return <div>Error while fetching data...</div>;
+  if (isFetching) return <div>Loading...</div>;
 
   return (
     <div className={styles.main}>
@@ -25,32 +54,19 @@ const Home = () => {
         <Link href="/">POKEMON LIST</Link>
       </h1>
       <ul>
-        {data?.results?.map((item: any) => (
-          <li key={item.name}>
-            <PokemonEntry name={item.name} />
-          </li>
-        ))}
+        {data?.pages.map((page) =>
+          page.results.map((item) => (
+            <li key={item.name}>
+              <PokemonEntry
+                name={item.name}
+                idx={parseInt(item.url.split("/").slice(-2, -1)[0], 10)}
+              />
+            </li>
+          ))
+        )}
       </ul>
-      <div className={styles.btn}>
-        {data?.previous && (
-          <button
-            onClick={() =>
-              router.push({ query: { ...router.query, page: page - 1 } })
-            }
-          >
-            PREVIOUS
-          </button>
-        )}
-        {data?.next && (
-          <button
-            onClick={() =>
-              router.push({ query: { ...router.query, page: page + 1 } })
-            }
-          >
-            NEXT
-          </button>
-        )}
-      </div>
+
+      <div ref={ref}></div>
     </div>
   );
 };

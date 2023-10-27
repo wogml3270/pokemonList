@@ -12,10 +12,12 @@ export default function PokemonDetailPage() {
 
   const { pokemon, pokemonLoading } = usePokemon(pokemonName);
 
+  console.log(pokemon);
+
   return (
     <>
       <Head>
-        {pokemon && <title>{`${pokemon.name} - NextJS Pokemon`}</title>}
+        {pokemon && <title>{`${pokemon.name} - Pokemon info`}</title>}
       </Head>
 
       <div className={styles.wrap}>
@@ -29,7 +31,7 @@ export default function PokemonDetailPage() {
             <h1>{pokemon.name}</h1>
             <Image
               src={pokemon.sprites.other["official-artwork"].front_default}
-              alt={"Pokemon: " + pokemon.name}
+              alt={pokemon.name}
               width={400}
               height={400}
             />

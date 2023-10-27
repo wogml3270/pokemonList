@@ -1,11 +1,11 @@
 import { useQuery } from "react-query";
-import * as PokemonApi from "@/pages/api/pokemon-api";
 import { AxiosError } from "axios";
+import { getPokemon } from "@/pages/api/pokemon-api";
 
 export default function usePokemon(name: string) {
   const { data, isLoading } = useQuery(["pokemon", name], async () => {
     try {
-      return await PokemonApi.getPokemon(name);
+      return await getPokemon(name);
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 404) {
         return null;
