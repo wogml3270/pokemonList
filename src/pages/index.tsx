@@ -46,8 +46,6 @@ const Home = () => {
     };
   }, [isFetchingNextPage, hasNextPage, fetchNextPage]);
 
-  if (isFetching) return <div>Loading...</div>;
-
   return (
     <div className={styles.main}>
       <h1>

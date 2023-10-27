@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import usePokemon from "@/hooks/usePokemon";
-import styles from "@/styles/poke.module.scss";
+import styles from "@/styles/entry.module.scss";
 
 const PokemonEntry = ({
   name,
