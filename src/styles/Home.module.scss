@@ -2,16 +2,29 @@ $primary_color: #d5eaff;
 $button_background: #4caf50;
 
 .main {
-    padding: 1.5rem 0;
+    .header {
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 100px;
+        background: #ccc;
 
-    h1 {
-        font-size: 3rem;
-        text-align: center;
+        h1 {
+            font-size: 3rem;
+            text-align: center;
 
-        a {
-            color: #000;
+            a {
+                color: #000;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
         }
     }
+
 
     h2 {
         font-size: 1rem;

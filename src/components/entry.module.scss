@@ -1,5 +1,9 @@
 .entry {
     display: flex;
     justify-content: space-around;
-    width: 100%
+    width: 100%;
+
+    span {
+        color: #0a13bf;
+    }
 }

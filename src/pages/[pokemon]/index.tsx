@@ -46,7 +46,7 @@ export default function PokemonDetailPage() {
               </div>
               <div>
                 <strong>Weight: </strong>
-                {pokemon.weight} kg
+                {pokemon.weight / 10} kg
               </div>
             </div>
           </>

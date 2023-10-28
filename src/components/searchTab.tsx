@@ -1,11 +1,7 @@
 import SearchInput from "./common/search";
 
 const SearchTab = (props: any) => {
-  return (
-    <div>
-      <SearchInput {...props} />
-    </div>
-  );
+  return <SearchInput {...props} />;
 };
 
 export default SearchTab;

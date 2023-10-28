@@ -1,19 +1,22 @@
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "react-query";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 
+import { language } from "@/core/recoil/language";
 import PokemonEntry from "@/components/pokemonEntry";
-import styles from "@/styles/Home.module.scss";
-import { useInView } from "react-intersection-observer";
 import { getPokemonPage } from "@/pages/api/pokemon-api";
+import styles from "@/styles/Home.module.scss";
+import SearchTab from "@/components/searchTab";
+import LanguageSelector from "@/components/common/langSelector";
 
 const Home = () => {
-  const [ref, isView] = useInView();
   const [input, setInput] = useState<string>("");
   const [search, setSearch] = useState<string>("");
-  const [hasLoaded, setHasLoaded] = useState<Boolean>(false);
+  const [lang, setLang] = useRecoilState(language);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
+  // 포켓몬 리스트 API
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(
       "getPokemonPage",
       ({ pageParam = 1 }) => getPokemonPage(pageParam),
@@ -46,25 +49,40 @@ const Home = () => {
     };
   }, [isFetchingNextPage, hasNextPage, fetchNextPage]);
 
+  // 검색 필터
+  const filteredData =
+    data?.pages.map((page) => {
+      return page.results.filter(
+        (item) =>
+          item.name.toLowerCase().includes(search.toLowerCase()) ||
+          item.url.split("/").slice(-2, -1)[0].includes(search)
+      );
+    }) || [];
+
   return (
     <div className={styles.main}>
-      <h1>
-        <Link href="/">POKEMON LIST</Link>
-      </h1>
+      <div className={styles.header}>
+        <h1>
+          <Link href="/">{lang === "en" ? "POKEMON LIST" : "포켓몬 도감"}</Link>
+        </h1>
+        <SearchTab input={input} setInput={setInput} setSearch={setSearch} />
+        <LanguageSelector />
+      </div>
       <ul>
-        {data?.pages.map((page) =>
-          page.results.map((item) => (
+        {filteredData.flatMap((pageResults) =>
+          pageResults.map((item) => (
             <li key={item.name}>
               <PokemonEntry
                 name={item.name}
-                idx={parseInt(item.url.split("/").slice(-2, -1)[0], 10)}
+                idx={`No. ${parseInt(
+                  item.url.split("/").slice(-2, -1)[0],
+                  10
+                )}`}
               />
             </li>
           ))
         )}
       </ul>
-
-      <div ref={ref}></div>
     </div>
   );
 };

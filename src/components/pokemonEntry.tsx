@@ -1,8 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import usePokemon from "@/hooks/usePokemon";
-import styles from "@/styles/entry.module.scss";
+import styles from "./entry.module.scss";
 
 const PokemonEntry = ({
   name,
@@ -22,7 +22,7 @@ const PokemonEntry = ({
             <span>{idx}</span>
             <h2>{pokemon.name}</h2>
           </div>
-          <Image
+          <LazyLoadImage
             src={pokemon.sprites.other["official-artwork"].front_default}
             alt={pokemon.name}
             width={200}

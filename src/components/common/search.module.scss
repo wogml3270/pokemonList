@@ -1,0 +1,22 @@
+.search {
+    display: flex;
+    gap: 1rem;
+
+    input {
+        padding: 0.5rem;
+        border-radius: 5px;
+        min-width: 250px;
+    }
+
+    button {
+        padding: 0.5rem;
+        background: #000;
+        color: #fff;
+        border-radius: 5px;
+        width: 60px;
+
+        &:hover {
+            background: #3d3d3d;
+        }
+    }
+}
