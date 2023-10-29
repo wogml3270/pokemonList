@@ -7,6 +7,7 @@ export interface PokemonPage {
 
 // 포켓몬 상세 페이지 타입 정의
 export interface Pokemon {
+  id: number;
   name: string;
   types: {
     type: {
@@ -25,8 +26,36 @@ export interface Pokemon {
   url: string;
 }
 
+// 진화 포켓몬 타입 정의
+export interface Evolution {
+  id: number;
+  results: {
+    url: string;
+  }[];
+  chain: {
+    evolves_to: {
+      evolves_to: {
+        species: {
+          name: string;
+        };
+      }[];
+      species: {
+        name: string;
+      };
+    }[];
+    species: {
+      name: string;
+    };
+  };
+}
+
 // 언어 타입 정의
 export interface Language {
-  name: string;
+  names: {
+    language: {
+      name: string | null;
+      url: string | null;
+    };
+  }[];
   url: string;
 }

@@ -8,8 +8,8 @@ $button_background: #4caf50;
         display: flex;
         justify-content: space-around;
         align-items: center;
-        height: 100px;
         background: #ccc;
+        padding: 1rem 0;
 
         h1 {
             font-size: 3rem;
@@ -22,6 +22,7 @@ $button_background: #4caf50;
 
         @media screen and (max-width: 768px) {
             flex-direction: column;
+            gap: 2.5rem;
         }
     }
 

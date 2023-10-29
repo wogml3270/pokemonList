@@ -2,17 +2,31 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import { useRecoilState } from "recoil";
+import { useEffect } from "react";
 
+import { pokemonIdState } from "@/core/recoil/atoms";
 import styles from "./detail.module.scss";
 import usePokemon from "@/hooks/usePokemon";
+import { languageState } from "@/core/recoil/atoms";
+import useEvolution from "@/hooks/useEvolution";
 
-export default function PokemonDetailPage() {
+const PokemonDetailPage = () => {
   const router = useRouter();
   const pokemonName = router.query.pokemon?.toString() || "";
 
+  const [lang, setLang] = useRecoilState(languageState);
+  const [id, setId] = useRecoilState(pokemonIdState);
+
   const { pokemon, pokemonLoading } = usePokemon(pokemonName);
 
-  console.log(pokemon);
+  const { evolution, evolutionLoading } = useEvolution(id);
+
+  useEffect(() => {
+    if (pokemon) {
+      setId(pokemon?.id);
+    }
+  }, [pokemon]);
 
   return (
     <>
@@ -20,33 +34,62 @@ export default function PokemonDetailPage() {
         {pokemon && <title>{`${pokemon.name} - Pokemon info`}</title>}
       </Head>
 
+      <Link href="/" className={styles.pre}>
+        Back
+      </Link>
       <div className={styles.wrap}>
-        <Link href="/" className={styles.back}>
-          Back
-        </Link>
-        {pokemonLoading && <div>Loading...</div>}
-        {pokemon === null && <p>Pokemon not found</p>}
+        {pokemonLoading && (
+          <div>{lang === "en" ? "Loading..." : "로딩중..."}</div>
+        )}
+        {pokemon === null && (
+          <p>
+            {lang === "en" ? "Pokemon not found" : "포켓몬을 찾을 수 없습니다"}
+          </p>
+        )}
         {pokemon && (
           <>
-            <h1>{pokemon.name}</h1>
-            <Image
-              src={pokemon.sprites.other["official-artwork"].front_default}
-              alt={pokemon.name}
-              width={400}
-              height={400}
-            />
-            <div className={styles.block}>
-              <div>
-                <strong>Types:</strong>{" "}
-                {pokemon.types.map((type) => type.type.name).join(", ")}
+            <div className={styles.title}>
+              <span>No. {pokemon.id}</span>
+              <h1>{pokemon.name}</h1>
+            </div>
+            <div className={styles.specWrap}>
+              <Image
+                src={pokemon.sprites.other["official-artwork"].front_default}
+                alt={pokemon.name}
+                width={250}
+                height={250}
+              />
+              {/* 포켓몬 정보 */}
+              <div className={styles.spec}>
+                <div>
+                  <strong>{lang === "en" ? "Types: " : "타입: "}</strong>
+                  {pokemon.types.map((type) => type.type.name).join(", ")}
+                </div>
+                <div>
+                  <strong>{lang === "en" ? "Height: " : "신장: "}</strong>
+                  {pokemon.height * 10} cm
+                </div>
+                <div>
+                  <strong>{lang === "en" ? "weight: " : "체중: "}</strong>
+                  {pokemon.weight / 10} kg
+                </div>
               </div>
-              <div>
-                <strong>Height: </strong>
-                {pokemon.height * 10} cm
-              </div>
-              <div>
-                <strong>Weight: </strong>
-                {pokemon.weight / 10} kg
+            </div>
+            {/* 진화 루트 */}
+            <div className={styles.evolution}>
+              <h1>{lang === "en" ? "evolution" : "진화 루트"}</h1>
+              {evolutionLoading && (
+                <div>{lang === "en" ? "Loading..." : "로딩중..."}</div>
+              )}
+              <div className={styles.evolutionList}>
+                {evolution?.map((evo) => {
+                  return (
+                    <div key={evo[0]}>
+                      <p>{evo[0]}</p>
+                      <Image src={evo[1]} alt="" width={150} height={150} />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </>
@@ -54,4 +97,6 @@ export default function PokemonDetailPage() {
       </div>
     </>
   );
-}
+};
+
+export default PokemonDetailPage;

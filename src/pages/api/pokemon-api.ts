@@ -1,6 +1,7 @@
 import api from "@/pages/api/axiosInstance";
-import { Pokemon, PokemonPage, Language } from "@/types/pokemon";
+import { Pokemon, PokemonPage, Evolution, Language } from "@/types/pokemon";
 
+// GET) 포켓몬
 export async function getPokemon(name: string) {
   const delay = Math.random() * 2000;
   await new Promise((r) => setTimeout(r, delay));
@@ -9,6 +10,7 @@ export async function getPokemon(name: string) {
   return response.data;
 }
 
+// GET) 포켓몬 페이지
 export async function getPokemonPage(page: number) {
   const offset = 20;
   const response = await api.get<PokemonPage>(
@@ -17,7 +19,40 @@ export async function getPokemonPage(page: number) {
   return response.data;
 }
 
-export async function getChangeLanguage(num: number) {
-  const response = await api.get<Language>(`/language/${num}`);
+// GET) 진화 포켓몬
+export async function getEvolutionPokemon(id: number) {
+  const response = await api.get<Evolution>(`evolution-chain/${id}/`);
+  const pokemonEvoArray: [string, string][] = [];
+
+  const addPokemonInfo = async (species: { name: string }) => {
+    const name = species.name;
+    const img = await getPokemonImages(name);
+    pokemonEvoArray.push([name, img]);
+  };
+
+  const chain = response.data.chain;
+  const firstEvo = chain.evolves_to[0];
+
+  await addPokemonInfo(chain.species);
+
+  if (chain.evolves_to.length > 0) {
+    await addPokemonInfo(firstEvo.species);
+
+    if (firstEvo.evolves_to.length > 0) {
+      await addPokemonInfo(firstEvo.evolves_to[0].species);
+    }
+  }
+
+  return pokemonEvoArray;
+}
+
+async function getPokemonImages(name: string | number) {
+  const response = await api.get(`pokemon/${name}`);
+  return response.data.sprites.other["official-artwork"]?.front_default;
+}
+
+// GET) 언어 변경
+export async function getChangeLanguage(id: number) {
+  const response = await api.get<Language>(`/language/${id}`);
   return response.data;
 }

@@ -3,23 +3,29 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import usePokemon from "@/hooks/usePokemon";
 import styles from "./entry.module.scss";
+import useLanguage from "@/hooks/useLanguage";
+import { useRecoilState } from "recoil";
+import { languageState } from "@/core/recoil/atoms";
 
-const PokemonEntry = ({
-  name,
-  idx,
-}: {
-  name: string;
-  idx: number | string;
-}) => {
+const PokemonEntry = ({ name }: { name: string }) => {
   const { pokemon, pokemonLoading } = usePokemon(name);
+  const [lang] = useRecoilState(languageState);
+
+  const { languageData, languageLoading } = useLanguage(lang === "ko" ? 5 : 9);
+
+  if (languageLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Link href={"/" + name}>
-      {pokemonLoading && <div>Loading...</div>}
+      {pokemonLoading && (
+        <div>{lang === "en" ? "Loading..." : "로딩중..."}</div>
+      )}
       {pokemon && (
         <>
           <div className={styles.entry}>
-            <span>{idx}</span>
+            <span>No. {pokemon.id}</span>
             <h2>{pokemon.name}</h2>
           </div>
           <LazyLoadImage

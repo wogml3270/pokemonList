@@ -1,4 +1,4 @@
-import { language } from "@/core/recoil/language";
+import { languageState } from "@/core/recoil/atoms";
 import { useRecoilState } from "recoil";
 
 import styles from "./search.module.scss";
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const SearchInput = ({ input, setInput, setSearch }: Props) => {
-  const [lang, setLang] = useRecoilState(language);
+  const [lang, setLang] = useRecoilState(languageState);
 
   const placeholder = () => {
     if (lang === "en") {

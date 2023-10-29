@@ -3,25 +3,76 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    .back {
-        position: fixed;
-        left: 20px;
-        top: 20px;
-    }
+    gap: 2.5rem;
 
     h1 {
-        margin-top: 1.5rem;
         font-size: 1.5rem;
     }
 
-    .block {
+    .title {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        align-items: center;
+        gap: 2rem;
+        margin-top: 2rem;
+
+        span {
+            font-size: 1.5rem;
+        }
+    }
+
+    .specWrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         gap: 1rem;
 
-        strong {
-            color: #b10000;
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
         }
+
+        .spec {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            strong {
+                color: #b10000;
+            }
+        }
+    }
+
+    .evolution {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+
+        .evolutionList {
+            display: flex;
+            gap: 2rem;
+
+            &>div {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+    }
+
+
+}
+
+.pre {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    cursor: pointer;
+
+    &:hover {
+        color: #cb6a16;
     }
 }

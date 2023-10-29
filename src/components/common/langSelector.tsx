@@ -1,9 +1,9 @@
 import React from "react";
 import { useRecoilState } from "recoil";
-import { language } from "@/core/recoil/language";
+import { languageState } from "@/core/recoil/atoms";
 
 function LanguageSelector() {
-  const [selectedLanguage, setSelectedLanguage] = useRecoilState(language);
+  const [selectedLanguage, setSelectedLanguage] = useRecoilState(languageState);
 
   const handleLanguageChange = (newLanguage: string) => {
     setSelectedLanguage(newLanguage);
