@@ -6,7 +6,7 @@ export async function getPokemon(name: string) {
   const delay = Math.random() * 2000;
   await new Promise((r) => setTimeout(r, delay));
 
-  const response = await api.get<Pokemon>(`/pokemon/${name}`);
+  const response = await api.get<Pokemon>(`pokemon/${name}`);
   return response.data;
 }
 

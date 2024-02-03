@@ -18,7 +18,7 @@ const PokemonDetailPage = () => {
   const [lang, setLang] = useRecoilState(languageState);
   const [id, setId] = useRecoilState(pokemonIdState);
 
-  const { pokemon, pokemonLoading } = usePokemon(pokemonName);
+  const { pokemon, isLoading } = usePokemon(pokemonName);
 
   const { evolution, evolutionLoading } = useEvolution(id);
 
@@ -38,15 +38,8 @@ const PokemonDetailPage = () => {
         Back
       </Link>
       <div className={styles.wrap}>
-        {pokemonLoading && (
-          <div>{lang === "en" ? "Loading..." : "로딩중..."}</div>
-        )}
-        {pokemon === null && (
-          <p>
-            {lang === "en" ? "Pokemon not found" : "포켓몬을 찾을 수 없습니다"}
-          </p>
-        )}
-        {pokemon && (
+        {isLoading && <div>{lang === "en" ? "Loading..." : "로딩중..."}</div>}
+        {pokemon ? (
           <>
             <div className={styles.title}>
               <span>No. {pokemon.id}</span>
@@ -93,6 +86,10 @@ const PokemonDetailPage = () => {
               </div>
             </div>
           </>
+        ) : (
+          <p>
+            {lang === "en" ? "Pokemon not found" : "포켓몬을 찾을 수 없습니다"}
+          </p>
         )}
       </div>
     </>

@@ -8,7 +8,7 @@ import { useRecoilState } from "recoil";
 import { languageState } from "@/core/recoil/atoms";
 
 const PokemonEntry = ({ name }: { name: string }) => {
-  const { pokemon, pokemonLoading } = usePokemon(name);
+  const { pokemon, isLoading } = usePokemon(name);
   const [lang] = useRecoilState(languageState);
 
   const { languageData, languageLoading } = useLanguage(lang === "ko" ? 5 : 9);
@@ -18,10 +18,8 @@ const PokemonEntry = ({ name }: { name: string }) => {
   }
 
   return (
-    <Link href={"/" + name}>
-      {pokemonLoading && (
-        <div>{lang === "en" ? "Loading..." : "로딩중..."}</div>
-      )}
+    <Link href={`/pokemon/${name}`}>
+      {isLoading && <div>{lang === "en" ? "Loading..." : "로딩중..."}</div>}
       {pokemon && (
         <>
           <div className={styles.entry}>

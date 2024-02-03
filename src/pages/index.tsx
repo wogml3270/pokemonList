@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { useInView } from "react-intersection-observer";
 
-import { languageState, pokemonDataState } from "@/core/recoil/atoms";
+import { languageState } from "@/core/recoil/atoms";
 import PokemonEntry from "@/components/pokemonEntry";
 import { getPokemonPage } from "@/pages/api/pokemon-api";
 import styles from "@/styles/Home.module.scss";
@@ -15,7 +15,6 @@ const Home = () => {
   const [input, setInput] = useState<string>("");
   const [search, setSearch] = useState<string>("");
 
-  // const [pokemonList, setPokemonList] = useRecoilState(pokemonDataState);
   const [lang, setLang] = useRecoilState(languageState);
 
   const [ref, isView] = useInView();
