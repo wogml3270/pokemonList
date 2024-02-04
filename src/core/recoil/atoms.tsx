@@ -1,30 +1,31 @@
-import { Pokemon } from "@/types/pokemon";
-import { atom } from "recoil";
+import { atom } from 'recoil';
+
+import { Pokemon } from '@/types/pokemon';
 
 export const pokemonDataState = atom<Pokemon | null>({
-  key: "pokemonDataState",
+  key: 'pokemonDataState',
   default: null,
 });
 
 export const filterDataState = atom<string | object | void>({
-  key: "filterDataState",
+  key: 'filterDataState',
   default: {
-    searchKeyword: "",
-    typeFilter: "all",
+    searchKeyword: '',
+    typeFilter: 'all',
   },
 });
 
 export const pokemonIdState = atom<number>({
-  key: "pokemonIdState",
+  key: 'pokemonIdState',
   default: 1,
 });
 
 export const languageState = atom<string>({
-  key: "languageState",
-  default: "en",
+  key: 'languageState',
+  default: 'en',
 });
 
 export const koreanNamesState = atom<string[]>({
-  key: "koreanNamesState",
+  key: 'koreanNamesState',
   default: [],
 });

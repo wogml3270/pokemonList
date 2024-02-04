@@ -1,0 +1,10 @@
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & img {
+        width: 3em;
+        height: 3em;
+    }
+}

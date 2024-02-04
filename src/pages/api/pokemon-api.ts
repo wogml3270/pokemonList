@@ -1,20 +1,23 @@
-import api from "@/pages/api/axiosInstance";
-import { Pokemon, PokemonPage, Evolution, Language } from "@/types/pokemon";
+/* eslint-disable no-use-before-define */
+import api from '@/pages/api/axiosInstance';
+import { Pokemon, PokemonList, Evolution, Language } from '@/types/pokemon';
 
 // GET) 포켓몬
 export async function getPokemon(name: string) {
   const delay = Math.random() * 2000;
-  await new Promise((r) => setTimeout(r, delay));
+  await new Promise((r) => {
+    setTimeout(r, delay);
+  });
 
   const response = await api.get<Pokemon>(`pokemon/${name}`);
   return response.data;
 }
 
-// GET) 포켓몬 페이지
-export async function getPokemonPage(page: number) {
+// GET) 포켓몬 리스트
+export async function getPokemonList(page: number) {
   const offset = 20;
-  const response = await api.get<PokemonPage>(
-    `/pokemon?limit=${offset}&offset=${offset * (page - 1)}`
+  const response = await api.get<PokemonList>(
+    `/pokemon?limit=${offset}&offset=${offset * (page - 1)}`,
   );
   return response.data;
 }
@@ -25,12 +28,12 @@ export async function getEvolutionPokemon(id: number) {
   const pokemonEvoArray: [string, string][] = [];
 
   const addPokemonInfo = async (species: { name: string }) => {
-    const name = species.name;
+    const { name } = species;
     const img = await getPokemonImages(name);
     pokemonEvoArray.push([name, img]);
   };
 
-  const chain = response.data.chain;
+  const { chain } = response.data;
   const firstEvo = chain.evolves_to[0];
 
   await addPokemonInfo(chain.species);
@@ -48,7 +51,7 @@ export async function getEvolutionPokemon(id: number) {
 
 async function getPokemonImages(name: string | number) {
   const response = await api.get(`pokemon/${name}`);
-  return response.data.sprites.other["official-artwork"]?.front_default;
+  return response.data.sprites.other['official-artwork']?.front_default;
 }
 
 // GET) 언어 변경

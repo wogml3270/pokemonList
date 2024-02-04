@@ -1,5 +1,5 @@
 // 포켓몬 리스트 타입 정의
-export interface PokemonPage {
+export interface PokemonList {
   results: { name: string; url: string }[];
   next: string | null;
   previous: string | null;

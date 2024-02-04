@@ -1,7 +1,9 @@
-import { languageState } from "@/core/recoil/atoms";
-import { useRecoilState } from "recoil";
+import React from 'react';
+import { useRecoilState } from 'recoil';
 
-import styles from "./search.module.scss";
+import { languageState } from '@/core/recoil/atoms';
+
+import styles from './search.module.scss';
 
 interface Props {
   input: string | undefined;
@@ -13,10 +15,11 @@ const SearchInput = ({ input, setInput, setSearch }: Props) => {
   const [lang, setLang] = useRecoilState(languageState);
 
   const placeholder = () => {
-    if (lang === "en") {
-      return "Seach Pokemon With Name or Id";
-    } else if (lang === "ko") {
-      return "포켓몬 이름 또는 아이디를 입력해주세요";
+    if (lang === 'en') {
+      return 'Seach Pokemon With Name or Id';
+    }
+    if (lang === 'ko') {
+      return '포켓몬 이름 또는 아이디를 입력해주세요';
     }
   };
 
@@ -29,15 +32,15 @@ const SearchInput = ({ input, setInput, setSearch }: Props) => {
   };
 
   const reset = () => {
-    setSearch("");
-    setInput("");
+    setSearch('');
+    setInput('');
   };
 
   return (
     <div className={styles.search}>
-      <input type="text" onChange={write} placeholder={placeholder()} />
-      <button onClick={search}>{lang === "en" ? "search" : "검색"}</button>
-      <button onClick={reset}>{lang === "en" ? "reset" : "초기화"}</button>
+      <input type='text' onChange={write} placeholder={placeholder()} />
+      <button onClick={search}>{lang === 'en' ? 'search' : '검색'}</button>
+      <button onClick={reset}>{lang === 'en' ? 'reset' : '초기화'}</button>
     </div>
   );
 };

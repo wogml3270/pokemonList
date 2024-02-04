@@ -2,90 +2,155 @@ $primary_color: #d5eaff;
 $button_background: #4caf50;
 
 .main {
-    .header {
-        position: sticky;
-        top: 0;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        background: #ccc;
-        padding: 1rem 0;
+  margin: 0 auto;
+  min-height: 100vh;
 
-        h1 {
-            font-size: 3rem;
-            text-align: center;
+  .headerWrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
 
-            a {
-                color: #000;
-            }
-        }
+    background: {
+      image: url('../assets/monsterBall.jpg');
+      repeat: no-repeat;
+      size: cover;
+      position: center;
+    }
+  }
 
-        @media screen and (max-width: 768px) {
-            flex-direction: column;
-            gap: 2.5rem;
-        }
+  .header {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem 0;
+
+    h1 {
+      & img {
+        width: 150px;
+      }
     }
 
 
-    h2 {
-        font-size: 1rem;
-        text-align: center;
-        color: #000;
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      gap: 2.5rem;
     }
+  }
 
-    ul {
-        list-style: none;
-        padding: 1.5rem;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        grid-gap: 10px;
-        align-items: center;
-        justify-content: center;
+  ul {
+    max-width: 1200px;
+    margin: 0 auto;
+    list-style: none;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 10px;
+    align-items: center;
+    justify-content: center;
 
-        li {
-            font-size: 16px;
-            margin: 10px 0;
-            cursor: pointer;
-            border-radius: 10px;
+    li {
+      padding: 0;
+      border: none;
+      background: linear-gradient(150deg, rgb(155, 201, 255), rgb(86, 117, 255), rgb(2, 89, 251));
+      position: relative;
 
-            &:hover {
-                background-color: $primary_color;
-            }
+      &::before,
+      &::after {
+        position: absolute;
+        content: "";
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(75deg, #a3ff9b, #79f76d, #e9ffdd, #5bd642);
+        transition: all 0.5s ease;
+      }
 
-            a {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-            }
+      &::before {
+        height: 0%;
+        width: 5px;
+      }
+
+      &::after {
+        width: 0%;
+        height: 5px;
+      }
+
+      &:hover {
+        background: linear-gradient(75deg, rgb(155, 201, 255), rgb(86, 117, 255), rgb(2, 89, 251));
+
+        &::before {
+          height: 100%;
         }
-    }
 
-
-    .btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-
-        button {
-            background-color: $button_background;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-
-            &:hover {
-                background-color: #71a973;
-            }
-
-            &:disabled {
-                background-color: lightgray;
-                cursor: not-allowed;
-            }
+        &::after {
+          width: 100%;
         }
+      }
+
+      a {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+
+        &::before,
+        &::after {
+          position: absolute;
+          content: "";
+          left: 0;
+          top: 0;
+          background: linear-gradient(75deg, #a3ff9b, #79f76d, #e9ffdd, #5bd642);
+          ;
+          transition: all 0.3s ease;
+        }
+
+        &::before {
+          width: 5px;
+          height: 0%;
+        }
+
+        &::after {
+          width: 0%;
+          height: 5px;
+        }
+
+        &:hover {
+          &::before {
+            height: 100%;
+          }
+
+          &::after {
+            width: 100%;
+          }
+        }
+      }
     }
+  }
+
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    button {
+      background-color: $button_background;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+
+      &:hover {
+        background-color: #71a973;
+      }
+
+      &:disabled {
+        background-color: lightgray;
+        cursor: not-allowed;
+      }
+    }
+  }
 }

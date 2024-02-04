@@ -1,16 +1,19 @@
-import { useQuery } from "react-query";
-import { getPokemon } from "@/pages/api/pokemon-api";
+import { useQuery } from 'react-query';
 
-export default function usePokemon(name: string) {
+import { getPokemon } from '@/pages/api/pokemon-api';
+
+const usePokemon = (name: string) => {
   const {
     data: pokemon,
     isLoading,
     isError,
-  } = useQuery(["pokemon", name], () => getPokemon(name));
+  } = useQuery(['pokemon', name], () => getPokemon(name));
 
   return {
     pokemon,
     isLoading,
     isError,
   };
-}
+};
+
+export default usePokemon;

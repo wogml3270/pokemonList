@@ -1,20 +1,31 @@
-import React from "react";
-import { useRecoilState } from "recoil";
-import { languageState } from "@/core/recoil/atoms";
+import React from 'react';
+import { useRecoilState } from 'recoil';
 
-function LanguageSelector() {
+import { languageState } from '@/core/recoil/atoms';
+
+const LanguageSelector = () => {
   const [selectedLanguage, setSelectedLanguage] = useRecoilState(languageState);
 
-  const handleLanguageChange = (newLanguage: string) => {
-    setSelectedLanguage(newLanguage);
+  const handleLanguageChange = (e: any) => {
+    setSelectedLanguage(e.target.value);
   };
 
   return (
     <div>
-      <button onClick={() => handleLanguageChange("en")}>ENG</button>
-      <button onClick={() => handleLanguageChange("ko")}>KOR</button>
+      <select
+        name='language'
+        id='language'
+        value={selectedLanguage}
+        onChange={handleLanguageChange}
+      >
+        <option disabled value=''>
+          Language
+        </option>
+        <option value='en'>ENG</option>
+        <option value='ko'>KOR</option>
+      </select>
     </div>
   );
-}
+};
 
 export default LanguageSelector;

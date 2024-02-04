@@ -1,19 +1,19 @@
-import { useRouter } from "next/router";
-import Head from "next/head";
-import Link from "next/link";
-import Image from "next/image";
-import { useRecoilState } from "recoil";
-import { useEffect } from "react";
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useRecoilState } from 'recoil';
+import { useEffect } from 'react';
 
-import { pokemonIdState } from "@/core/recoil/atoms";
-import styles from "./detail.module.scss";
-import usePokemon from "@/hooks/usePokemon";
-import { languageState } from "@/core/recoil/atoms";
-import useEvolution from "@/hooks/useEvolution";
+import { pokemonIdState, languageState } from '@/core/recoil/atoms';
+import usePokemon from '@/hooks/usePokemon';
+import useEvolution from '@/hooks/useEvolution';
+
+import styles from './detail.module.scss';
 
 const PokemonDetailPage = () => {
   const router = useRouter();
-  const pokemonName = router.query.pokemon?.toString() || "";
+  const pokemonName = router.query.pokemon?.toString() || '';
 
   const [lang, setLang] = useRecoilState(languageState);
   const [id, setId] = useRecoilState(pokemonIdState);
@@ -34,11 +34,11 @@ const PokemonDetailPage = () => {
         {pokemon && <title>{`${pokemon.name} - Pokemon info`}</title>}
       </Head>
 
-      <Link href="/" className={styles.pre}>
+      <Link href='/' className={styles.pre}>
         Back
       </Link>
       <div className={styles.wrap}>
-        {isLoading && <div>{lang === "en" ? "Loading..." : "로딩중..."}</div>}
+        {isLoading && <div>{lang === 'en' ? 'Loading...' : '로딩중...'}</div>}
         {pokemon ? (
           <>
             <div className={styles.title}>
@@ -47,7 +47,7 @@ const PokemonDetailPage = () => {
             </div>
             <div className={styles.specWrap}>
               <Image
-                src={pokemon.sprites.other["official-artwork"].front_default}
+                src={pokemon.sprites.other['official-artwork'].front_default}
                 alt={pokemon.name}
                 width={250}
                 height={250}
@@ -55,31 +55,31 @@ const PokemonDetailPage = () => {
               {/* 포켓몬 정보 */}
               <div className={styles.spec}>
                 <div>
-                  <strong>{lang === "en" ? "Types: " : "타입: "}</strong>
-                  {pokemon.types.map((type) => type.type.name).join(", ")}
+                  <strong>{lang === 'en' ? 'Types: ' : '타입: '}</strong>
+                  {pokemon.types.map((type) => type.type.name).join(', ')}
                 </div>
                 <div>
-                  <strong>{lang === "en" ? "Height: " : "신장: "}</strong>
+                  <strong>{lang === 'en' ? 'Height: ' : '신장: '}</strong>
                   {pokemon.height * 10} cm
                 </div>
                 <div>
-                  <strong>{lang === "en" ? "weight: " : "체중: "}</strong>
+                  <strong>{lang === 'en' ? 'weight: ' : '체중: '}</strong>
                   {pokemon.weight / 10} kg
                 </div>
               </div>
             </div>
             {/* 진화 루트 */}
             <div className={styles.evolution}>
-              <h1>{lang === "en" ? "evolution" : "진화 루트"}</h1>
+              <h1>{lang === 'en' ? 'evolution' : '진화 루트'}</h1>
               {evolutionLoading && (
-                <div>{lang === "en" ? "Loading..." : "로딩중..."}</div>
+                <div>{lang === 'en' ? 'Loading...' : '로딩중...'}</div>
               )}
               <div className={styles.evolutionList}>
                 {evolution?.map((evo) => {
                   return (
                     <div key={evo[0]}>
                       <p>{evo[0]}</p>
-                      <Image src={evo[1]} alt="" width={150} height={150} />
+                      <Image src={evo[1]} alt='' width={150} height={150} />
                     </div>
                   );
                 })}
@@ -88,7 +88,7 @@ const PokemonDetailPage = () => {
           </>
         ) : (
           <p>
-            {lang === "en" ? "Pokemon not found" : "포켓몬을 찾을 수 없습니다"}
+            {lang === 'en' ? 'Pokemon not found' : '포켓몬을 찾을 수 없습니다'}
           </p>
         )}
       </div>
