@@ -75,17 +75,19 @@ const Home = () => {
             : '데이터를 불러오지 못했습니다.'}
         </p>
       ) : (
-        <ul>
-          {filteredData.flatMap((pageResults) =>
-            pageResults.map((item) => (
-              <CardComponent key={item.name}>
-                <li>
-                  <PokemonEntry name={item.name} />
-                </li>
-              </CardComponent>
-            )),
-          )}
-        </ul>
+        <div>
+          <ul>
+            {filteredData.flatMap((pageResults) =>
+              pageResults.map((item) => (
+                <CardComponent key={item.name}>
+                  <li>
+                    <PokemonEntry name={item.name} />
+                  </li>
+                </CardComponent>
+              )),
+            )}
+          </ul>
+        </div>
       )}
       {isFetching && <Loading />}
       <div ref={ref} />

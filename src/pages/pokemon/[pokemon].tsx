@@ -10,6 +10,7 @@ import usePokemon from '@/hooks/usePokemon';
 import useEvolution from '@/hooks/useEvolution';
 
 import styles from './detail.module.scss';
+import Loading from '@/components/common/Loading';
 
 const PokemonDetailPage = () => {
   const router = useRouter();
@@ -38,8 +39,8 @@ const PokemonDetailPage = () => {
         Back
       </Link>
       <div className={styles.wrap}>
-        {isLoading && <div>{lang === 'en' ? 'Loading...' : '로딩중...'}</div>}
-        {pokemon ? (
+        {isLoading && <Loading />}
+        {pokemon && (
           <>
             <div className={styles.title}>
               <span>No. {pokemon.id}</span>
@@ -56,7 +57,7 @@ const PokemonDetailPage = () => {
               <div className={styles.spec}>
                 <div>
                   <strong>{lang === 'en' ? 'Types: ' : '타입: '}</strong>
-                  {pokemon.types.map((type) => type.type.name).join(', ')}
+                  {pokemon.types.map((item) => item.type.name).join(', ')}
                 </div>
                 <div>
                   <strong>{lang === 'en' ? 'Height: ' : '신장: '}</strong>
@@ -71,9 +72,7 @@ const PokemonDetailPage = () => {
             {/* 진화 루트 */}
             <div className={styles.evolution}>
               <h1>{lang === 'en' ? 'evolution' : '진화 루트'}</h1>
-              {evolutionLoading && (
-                <div>{lang === 'en' ? 'Loading...' : '로딩중...'}</div>
-              )}
+              {evolutionLoading && <Loading />}
               <div className={styles.evolutionList}>
                 {evolution?.map((evo) => {
                   return (
@@ -86,10 +85,6 @@ const PokemonDetailPage = () => {
               </div>
             </div>
           </>
-        ) : (
-          <p>
-            {lang === 'en' ? 'Pokemon not found' : '포켓몬을 찾을 수 없습니다'}
-          </p>
         )}
       </div>
     </>

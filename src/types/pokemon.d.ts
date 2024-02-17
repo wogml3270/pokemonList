@@ -5,6 +5,13 @@ export interface PokemonList {
   previous: string | null;
 }
 
+// 포켓몬 한국어 타입 정의
+export interface PokemonName {
+  id: number;
+  name: string;
+  korean_name: string;
+}
+
 // 포켓몬 상세 페이지 타입 정의
 export interface Pokemon {
   id: number;
@@ -18,7 +25,7 @@ export interface Pokemon {
   height: number;
   sprites: {
     other: {
-      "official-artwork": {
+      'official-artwork': {
         front_default: string;
       };
     };
