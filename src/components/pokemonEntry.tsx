@@ -1,13 +1,16 @@
 import Link from 'next/link';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useRecoilValue } from 'recoil';
 
 import usePokemon from '@/hooks/usePokemon';
+import { languageState } from '@/core/recoil/atoms';
 
 import styles from './entry.module.scss';
 import Loading from '@/components/common/Loading';
 
 const PokemonEntry = ({ name }: { name: string }) => {
   const { pokemon, isLoading } = usePokemon(name);
+  const lang = useRecoilValue(languageState);
 
   return (
     <Link href={`/pokemon/${name}`}>
@@ -16,13 +19,15 @@ const PokemonEntry = ({ name }: { name: string }) => {
         {pokemon && (
           <>
             <div className={styles.entryTitle}>
-              <h2>No. {pokemon?.id}</h2>
-              <span>{pokemon?.name}</span>
+              <h2>No. {pokemon?.data.id}</h2>
+              <span>
+                {lang === 'en' ? pokemon?.data.name : pokemon?.koreaName}
+              </span>
             </div>
             <div className={styles.entryImage}>
               <LazyLoadImage
-                src={pokemon?.sprites.other['official-artwork'].front_default}
-                alt={pokemon?.name}
+                src={pokemon?.data.sprites.other.home.front_default}
+                alt={pokemon?.data.name}
               />
             </div>
           </>

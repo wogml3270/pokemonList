@@ -4,7 +4,7 @@ interface CardComponentProps {
   children: ReactNode;
 }
 
-const CardComponent = ({ children }: CardComponentProps) => {
+const PokemonCard = ({ children }: CardComponentProps) => {
   useEffect(() => {
     const handleMouseMove = (e: any) => {
       const card = e.currentTarget as HTMLElement;
@@ -43,4 +43,4 @@ const CardComponent = ({ children }: CardComponentProps) => {
   return <div className='card'>{children}</div>;
 };
 
-export default CardComponent;
+export default PokemonCard;

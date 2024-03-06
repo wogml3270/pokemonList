@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { languageState } from '@/core/recoil/atoms';
 
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const SearchInput = ({ input, setInput, setSearch }: Props) => {
-  const [lang, setLang] = useRecoilState(languageState);
+  const lang = useRecoilValue(languageState);
 
   const placeholder = () => {
     if (lang === 'en') {

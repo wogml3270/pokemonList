@@ -22,7 +22,7 @@ export const pokemonIdState = atom<number>({
 
 export const languageState = atom<string>({
   key: 'languageState',
-  default: 'en',
+  default: 'ko',
 });
 
 export const koreanNamesState = atom<string[]>({

@@ -21,8 +21,8 @@ const LanguageSelector = () => {
         <option disabled value=''>
           Language
         </option>
-        <option value='en'>ENG</option>
         <option value='ko'>KOR</option>
+        <option value='en'>ENG</option>
       </select>
     </div>
   );
