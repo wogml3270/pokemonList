@@ -5,17 +5,11 @@ export interface PokemonList {
   previous: string | null;
 }
 
-// 포켓몬 한국어 타입 정의
-export interface PokemonName {
-  id: number;
-  name: string;
-  korean_name: string;
-}
-
 // 포켓몬 상세 페이지 타입 정의
 export interface Pokemon {
   id: number;
   name: string;
+  korean_name: string;
   types: {
     type: {
       name: string;
@@ -24,34 +18,16 @@ export interface Pokemon {
   weight: number;
   height: number;
   sprites: {
+    back_default: string;
+    front_default: string;
     other: {
-      'official-artwork': {
+      home: {
+        front_default: string;
+        back_default: string;
+      };
+      showdown: {
         front_default: string;
       };
-    };
-  };
-  url: string;
-}
-
-// 진화 포켓몬 타입 정의
-export interface Evolution {
-  id: number;
-  results: {
-    url: string;
-  }[];
-  chain: {
-    evolves_to: {
-      evolves_to: {
-        species: {
-          name: string;
-        };
-      }[];
-      species: {
-        name: string;
-      };
-    }[];
-    species: {
-      name: string;
     };
   };
 }

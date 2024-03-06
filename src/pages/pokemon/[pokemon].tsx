@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 
 import { pokemonIdState, languageState } from '@/core/recoil/atoms';
 import usePokemon from '@/hooks/usePokemon';
-import useEvolution from '@/hooks/useEvolution';
 
 import styles from './detail.module.scss';
 import Loading from '@/components/common/Loading';
@@ -21,11 +20,9 @@ const PokemonDetailPage = () => {
 
   const { pokemon, isLoading } = usePokemon(pokemonName);
 
-  const { evolution, evolutionLoading } = useEvolution(id);
-
   useEffect(() => {
     if (pokemon) {
-      setId(pokemon?.id);
+      setId(pokemon.data?.id);
     }
   }, [pokemon]);
 
@@ -43,45 +40,42 @@ const PokemonDetailPage = () => {
         {pokemon && (
           <>
             <div className={styles.title}>
-              <span>No. {pokemon.id}</span>
-              <h1>{pokemon.name}</h1>
+              <span>No. {id}</span>
+              <h1>{pokemon.koreaName}</h1>
             </div>
             <div className={styles.specWrap}>
               <Image
-                src={pokemon.sprites.other['official-artwork'].front_default}
-                alt={pokemon.name}
-                width={250}
-                height={250}
+                src={pokemon.data.sprites.other.home.front_default}
+                alt={pokemon.data.name}
+                width={200}
+                height={200}
+              />
+              <Image
+                src={pokemon.data.sprites.front_default}
+                alt={pokemon.data.name}
+                width={100}
+                height={100}
+              />
+              <Image
+                src={pokemon.data.sprites.back_default}
+                alt={pokemon.data.name}
+                width={100}
+                height={100}
               />
               {/* 포켓몬 정보 */}
               <div className={styles.spec}>
                 <div>
                   <strong>{lang === 'en' ? 'Types: ' : '타입: '}</strong>
-                  {pokemon.types.map((item) => item.type.name).join(', ')}
+                  {pokemon.data.types.map((item) => item.type.name).join(', ')}
                 </div>
                 <div>
                   <strong>{lang === 'en' ? 'Height: ' : '신장: '}</strong>
-                  {pokemon.height * 10} cm
+                  {pokemon.data.height * 10} cm
                 </div>
                 <div>
                   <strong>{lang === 'en' ? 'weight: ' : '체중: '}</strong>
-                  {pokemon.weight / 10} kg
+                  {pokemon.data.weight / 10} kg
                 </div>
-              </div>
-            </div>
-            {/* 진화 루트 */}
-            <div className={styles.evolution}>
-              <h1>{lang === 'en' ? 'evolution' : '진화 루트'}</h1>
-              {evolutionLoading && <Loading />}
-              <div className={styles.evolutionList}>
-                {evolution?.map((evo) => {
-                  return (
-                    <div key={evo[0]}>
-                      <p>{evo[0]}</p>
-                      <Image src={evo[1]} alt='' width={150} height={150} />
-                    </div>
-                  );
-                })}
               </div>
             </div>
           </>

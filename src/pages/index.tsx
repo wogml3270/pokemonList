@@ -14,7 +14,7 @@ import SearchTab from '@/components/searchTab';
 import LanguageSelector from '@/components/common/langSelector';
 import Loading from '@/components/common/Loading';
 import pokemonLogo from '@/assets/pokemonLogo.png';
-import CardComponent from '@/components/pokemonCard';
+import PokemonCard from '@/components/PokemonCard';
 
 const Home = () => {
   const [input, setInput] = useState<string>('');
@@ -79,11 +79,11 @@ const Home = () => {
           <ul>
             {filteredData.flatMap((pageResults) =>
               pageResults.map((item) => (
-                <CardComponent key={item.name}>
+                <PokemonCard key={item.name}>
                   <li>
                     <PokemonEntry name={item.name} />
                   </li>
-                </CardComponent>
+                </PokemonCard>
               )),
             )}
           </ul>
