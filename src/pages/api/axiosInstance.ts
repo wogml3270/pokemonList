@@ -12,7 +12,7 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.error('Request Error, 요청 에러', error);
+    // console.error('Request Error, 요청 에러', error);
     return Promise.reject(error);
   },
 );
@@ -26,7 +26,7 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     // 응답 상태 코드 200이 아닌 경우
-    console.error('Response Error, 응답 에러', error);
+    // console.error('Response Error, 응답 에러', error);
     return Promise.reject(error);
   },
 );
