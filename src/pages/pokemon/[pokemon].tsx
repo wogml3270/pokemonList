@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useEffect } from 'react';
 
 import { pokemonIdState, languageState } from '@/core/recoil/atoms';
@@ -16,7 +16,7 @@ const PokemonDetailPage = () => {
   const router = useRouter();
   const pokemonName = router.query.pokemon?.toString() || '';
 
-  const [lang, setLang] = useRecoilState(languageState);
+  const lang = useRecoilValue(languageState);
   const [id, setId] = useRecoilState(pokemonIdState);
 
   const { pokemon, isLoading } = usePokemon(pokemonName);
@@ -32,7 +32,7 @@ const PokemonDetailPage = () => {
   return (
     <>
       <Head>
-        {pokemon && <title>{`${pokemon.name} - Pokemon info`}</title>}
+        <title>{`${pokemonName} - Pokemon info`}</title>
       </Head>
 
       <Link href='/' className={styles.pre}>

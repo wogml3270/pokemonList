@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from 'react-query';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import Image from 'next/image';
 
@@ -19,7 +19,7 @@ import CardComponent from '@/components/pokemonCard';
 const Home = () => {
   const [input, setInput] = useState<string>('');
   const [search, setSearch] = useState<string>('');
-  const [lang, setLang] = useRecoilState(languageState);
+  const lang = useRecoilValue(languageState);
   const [ref, isView] = useInView();
   const [isFetching, setIsFetching] = useState<Boolean>(false);
 

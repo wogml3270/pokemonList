@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { getPokemonName } from './api/pokemon-api';
+import { getPokemonName } from '@/pages/api/pokemon-api';
+
 import Loading from '@/components/common/Loading';
 
 interface PokemonData {
