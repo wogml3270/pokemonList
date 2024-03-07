@@ -3,7 +3,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useRecoilValue } from 'recoil';
 
 import usePokemon from '@/hooks/usePokemon';
-import { languageState } from '@/core/recoil/atoms';
+import { languageState } from '@/core/atoms';
 
 import styles from './entry.module.scss';
 import Loading from '@/components/common/Loading';

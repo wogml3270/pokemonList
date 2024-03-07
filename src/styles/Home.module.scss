@@ -1,45 +1,11 @@
 $primary_color: #d5eaff;
 $button_background: #4caf50;
 
-.main {
+.app {
   margin: 0 auto;
   min-height: 100vh;
 
-  .headerWrap {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-
-    background: {
-      image: url('../assets/monsterBall.jpg');
-      repeat: no-repeat;
-      size: cover;
-      position: center;
-    }
-  }
-
-  .header {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 1rem 0;
-
-    h1 {
-      & img {
-        width: 150px;
-      }
-    }
-
-
-    @media screen and (max-width: 768px) {
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-  }
-
-  ul {
+  section {
     max-width: 1200px;
     margin: 0 auto;
     list-style: none;
@@ -50,7 +16,7 @@ $button_background: #4caf50;
     align-items: center;
     justify-content: center;
 
-    li {
+    div.listItem {
       padding: 0;
       border: none;
       background: linear-gradient(150deg, rgb(155, 201, 255), rgb(86, 117, 255), rgb(2, 89, 251));
