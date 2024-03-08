@@ -6,7 +6,7 @@ import { languageState } from '@/core/atoms';
 const LanguageSelector = () => {
   const [selectedLanguage, setSelectedLanguage] = useRecoilState(languageState);
 
-  // 언어 변경 핸들러
+  // 언어 변경 핸들러, localStorage 저장
   const handleLanguageChange = (language: string) => {
     setSelectedLanguage(language);
     if (typeof window !== 'undefined') {
@@ -21,7 +21,7 @@ const LanguageSelector = () => {
         handleLanguageChange(storedLanguage);
       }
     }
-  }, []);
+  }, [selectedLanguage]);
 
   return (
     <div>
@@ -36,6 +36,7 @@ const LanguageSelector = () => {
         </option>
         <option value='ko'>KOR</option>
         <option value='en'>ENG</option>
+        <option value='ja'>JAP</option>
       </select>
     </div>
   );

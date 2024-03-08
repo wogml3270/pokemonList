@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { pokemonIdState, languageState } from '@/core/atoms';
 import usePokemon from '@/hooks/usePokemon';
+import { changeNameLanguage } from '@/utils/changeNameLanguage';
 
 import styles from './detail.module.scss';
 import Loading from '@/components/common/Loading';
@@ -16,20 +16,14 @@ const PokemonDetailPage = () => {
   const pokemonName = router.query.pokemon?.toString() || '';
 
   const lang = useRecoilValue(languageState);
-  const [id, setId] = useRecoilState(pokemonIdState);
+  const id = useRecoilValue(pokemonIdState);
 
   const { pokemon, isLoading } = usePokemon(pokemonName);
-
-  useEffect(() => {
-    if (pokemon) {
-      setId(pokemon.data?.id);
-    }
-  }, [pokemon]);
 
   return (
     <>
       <Head>
-        <title>{`${lang === 'en' ? pokemon?.data.name : pokemon?.koreaName} - Pokemon info`}</title>
+        <title>{`${changeNameLanguage(lang, pokemon)} - Pokemon info`}</title>
       </Head>
       <Header />
       <section className={styles.pokemonDetail}>
@@ -46,24 +40,24 @@ const PokemonDetailPage = () => {
             <>
               <div className={styles.title}>
                 <span>No. {id}</span>
-                <h1>{lang === 'en' ? pokemon.data.name : pokemon.koreaName}</h1>
+                <h1>{changeNameLanguage(lang, pokemon)}</h1>
               </div>
               <div className={styles.specWrap}>
                 <Image
                   src={pokemon.data.sprites.other.home.front_default}
-                  alt={pokemon.data.name}
+                  alt={changeNameLanguage(lang, pokemon)}
                   width={200}
                   height={200}
                 />
                 <Image
                   src={pokemon.data.sprites.front_default}
-                  alt={pokemon.data.name}
+                  alt={changeNameLanguage(lang, pokemon)}
                   width={100}
                   height={100}
                 />
                 <Image
                   src={pokemon.data.sprites.back_default}
-                  alt={pokemon.data.name}
+                  alt={changeNameLanguage(lang, pokemon)}
                   width={100}
                   height={100}
                 />

@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 
 import usePokemon from '@/hooks/usePokemon';
 import { languageState } from '@/core/atoms';
+import { changeNameLanguage } from '@/utils/changeNameLanguage';
 
 import styles from './entry.module.scss';
 import Loading from '@/components/common/Loading';
@@ -20,14 +21,12 @@ const PokemonEntry = ({ name }: { name: string }) => {
           <>
             <div className={styles.entryTitle}>
               <h2>No. {pokemon?.data.id}</h2>
-              <span>
-                {lang === 'en' ? pokemon?.data.name : pokemon?.koreaName}
-              </span>
+              <span>{changeNameLanguage(lang, pokemon)}</span>
             </div>
             <div className={styles.entryImage}>
               <LazyLoadImage
                 src={pokemon?.data.sprites.other.home.front_default}
-                alt={pokemon?.data.name}
+                alt={changeNameLanguage(lang, pokemon)}
               />
             </div>
           </>

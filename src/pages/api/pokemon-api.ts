@@ -1,14 +1,18 @@
 import api from '@/pages/api/axiosInstance';
-import { Pokemon, PokemonList, Language } from '@/types/pokemon';
+import { Pokemon, PokemonList } from '@/types/pokemon';
 
-// GET) 포켓몬 (한국어 이름과 같이)
+// GET) 한국어, 영어, 일본어 이름, 포켓몬 정보 불러오기
 export const getPokemon = async (name: string) => {
   const response = await api.get<Pokemon>(`pokemon/${name}`);
   const speciesResponse = await api.get(`pokemon-species/${name}`);
-  const koreaName = speciesResponse.data.names.find(
-    (result: any) => result.language.name === 'ko',
-  );
-  return { koreaName: koreaName.name, data: response.data };
+  return {
+    names: {
+      ko: speciesResponse.data.names[2].name,
+      en: speciesResponse.data.name,
+      ja: speciesResponse.data.names[9].name,
+    },
+    data: response.data,
+  };
 };
 
 // GET) 포켓몬 리스트
@@ -24,10 +28,4 @@ export const getPokemonList = async (page: number) => {
 export const getPokemonImages = async (id: number) => {
   const response = await api.get(`pokemon/${id}`);
   return response.data.sprites.other.home?.front_default;
-};
-
-// GET) 언어 변경
-export const getChangeLanguage = async (id: number) => {
-  const response = await api.get<Language>(`/language/${id}`);
-  return response.data;
 };

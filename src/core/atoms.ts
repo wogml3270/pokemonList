@@ -7,6 +7,11 @@ export const pokemonDataState = atom<Pokemon | null>({
   default: null,
 });
 
+export const pokemonIdState = atom<number>({
+  key: 'pokemonId',
+  default: 1,
+});
+
 export const searchDataState = atom<string>({
   key: 'searchData',
   default: '',
@@ -22,9 +27,19 @@ export const keywordsState = atom<string[]>({
   default: [],
 });
 
-export const pokemonIdState = atom<number>({
-  key: 'pokemonId',
-  default: 1,
+export const queryState = atom<string>({
+  key: 'query',
+  default: '',
+});
+
+export const typeState = atom<string[]>({
+  key: 'type',
+  default: [],
+});
+
+export const sortState = atom<string>({
+  key: 'sort',
+  default: '',
 });
 
 export const languageState = atom<string>({

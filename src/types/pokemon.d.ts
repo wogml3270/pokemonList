@@ -9,7 +9,9 @@ export interface PokemonList {
 export interface Pokemon {
   id: number;
   name: string;
-  korean_name: string;
+  ko: string;
+  en: string;
+  ja: string;
   types: {
     type: {
       name: string;
@@ -30,15 +32,4 @@ export interface Pokemon {
       };
     };
   };
-}
-
-// 언어 타입 정의
-export interface Language {
-  names: {
-    language: {
-      name: string | null;
-      url: string | null;
-    };
-  }[];
-  url: string;
 }
