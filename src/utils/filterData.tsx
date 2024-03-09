@@ -15,6 +15,7 @@ interface FileterDataProps {
 }
 
 const filterData = ({ data, search }: FileterDataProps) => {
+  if (!data) return [];
   return (
     data?.pages.map((page: Page) => {
       return page.results.filter(

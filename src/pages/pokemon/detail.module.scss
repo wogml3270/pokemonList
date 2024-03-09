@@ -1,79 +1,88 @@
 .pokemonDetail {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2.5rem;
     position: relative;
+    padding: 3rem 0;
 
     .previous {
-        position: absolute;
-        left: 20px;
-        top: 20px;
-        cursor: pointer;
+        img {
+            position: fixed;
+            left: 20px;
+            top: 120px;
+            width: 25px;
+            height: 25px;
+            border-radius: 5px;
+            padding: 0.5rem;
 
-        &:hover {
-            color: #cb6a16;
-        }
-    }
+            &:hover {
+                background-color: #e9f7ca;
+            }
 
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    .title {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 2rem;
-        margin-top: 2rem;
-
-        span {
-            font-size: 1.5rem;
-        }
-    }
-
-    .specWrap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-
-        @media screen and (max-width: 768px) {
-            flex-direction: column;
-        }
-
-        .spec {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-
-            strong {
-                color: #b10000;
+            @media screen and (max-width: 768px) {
+                top: 250px;
             }
         }
+
+
     }
 
-    .evolution {
+    .wrap {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-        gap: 1.5rem;
+        justify-content: center;
+        gap: 3rem;
 
-        .evolutionList {
+        h1 {
+            font-size: 1.5rem;
+        }
+
+        .title {
             display: flex;
+            flex-direction: row;
+            align-items: center;
             gap: 2rem;
+            margin-top: 2rem;
 
-            &>div {
+            span {
+                font-size: 1.5rem;
+            }
+        }
+
+        .specWrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+
+            & .gameImage {
+                display: flex;
+                flex-direction: column;
+            }
+
+            @media screen and (max-width: 768px) {
+                flex-direction: column;
+            }
+
+            .spec {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                align-items: center;
-                gap: 1rem;
+                gap: 1.5rem;
+
+                strong {
+                    color: #b10000;
+                }
+
+                .types,
+                .height,
+                .weight {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
             }
         }
     }
-
 
 }

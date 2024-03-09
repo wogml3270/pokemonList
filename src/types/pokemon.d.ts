@@ -23,6 +23,9 @@ export interface Pokemon {
     back_default: string;
     front_default: string;
     other: {
+      'official-artwork': {
+        front_default: string;
+      };
       home: {
         front_default: string;
         back_default: string;
