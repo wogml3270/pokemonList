@@ -9,15 +9,15 @@ import SearchInput from './Search/SearchInput';
 const Header = () => {
   return (
     <header className={styles.headerWrap}>
-      <div className={styles.header}>
+      <nav className={styles.header}>
         <h1>
           <Link href='/'>
-            <Image src={pokemonLogo} alt='logo' width={150} />
+            <Image src={pokemonLogo} alt='logo' />
           </Link>
         </h1>
         <SearchInput />
         <LanguageSelector />
-      </div>
+      </nav>
     </header>
   );
 };

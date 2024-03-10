@@ -1,6 +1,10 @@
 .pokemonDetail {
     position: relative;
-    padding: 3rem 0;
+    padding: 1.5rem 0;
+
+    @media screen and (max-width: 768px) {
+        padding: 0 0 3rem 0;
+    }
 
     .previous {
         img {
@@ -17,7 +21,7 @@
             }
 
             @media screen and (max-width: 768px) {
-                top: 250px;
+                top: 170px;
             }
         }
 
@@ -52,15 +56,22 @@
             justify-content: center;
             align-items: center;
             gap: 3rem;
-
-            & .gameImage {
-                display: flex;
-                flex-direction: column;
-            }
+            padding: 1rem;
+            border: 5px dotted #cdcdcd;
 
             @media screen and (max-width: 768px) {
                 flex-direction: column;
             }
+
+            .gameImage {
+                display: flex;
+                flex-direction: column;
+
+                @media screen and (max-width: 768px) {
+                    flex-direction: row;
+                }
+            }
+
 
             .spec {
                 display: flex;

@@ -55,15 +55,7 @@ const Home = () => {
                     data.pages.length === i + 1 &&
                     index === group.results.length - 1
                   ) {
-                    return (
-                      <div ref={lastPokemonElementRef} key={key}>
-                        <PokemonCard key={pokemon.name}>
-                          <div className={styles.listItem}>
-                            <PokemonEntry name={pokemon.name} />
-                          </div>
-                        </PokemonCard>
-                      </div>
-                    );
+                    return <div ref={lastPokemonElementRef} key={key} />;
                   }
                   return (
                     <PokemonCard key={key}>

@@ -2,9 +2,9 @@ import api from '@/pages/api/axiosInstance';
 import { Pokemon, PokemonList } from '@/types/pokemon';
 
 // GET) 한국어, 영어, 일본어 이름, 포켓몬 정보 불러오기
-export const getPokemon = async (id: string) => {
-  const response = await api.get<Pokemon>(`pokemon/${id}`);
-  const speciesResponse = await api.get(`pokemon-species/${id}`);
+export const getPokemon = async (pokemonName: string | number) => {
+  const response = await api.get<Pokemon>(`pokemon/${pokemonName}`);
+  const speciesResponse = await api.get(`pokemon-species/${pokemonName}`);
 
   // 언어별 이름 찾기
   const findNameByLang = (lang: string) =>
