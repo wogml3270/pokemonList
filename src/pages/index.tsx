@@ -14,7 +14,7 @@ const Home = () => {
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery('pokemonList', fetchPokemons, {
-      getNextPageParam: (lastPage, pages) => pages.length + 1,
+      getNextPageParam: (_, pages) => pages.length + 1,
     });
 
   const observer = useRef<IntersectionObserver | null>(null);

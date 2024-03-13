@@ -12,6 +12,11 @@ export const pokemonIdState = atom<number>({
   default: 1,
 });
 
+export const scrollPositionState = atom<number>({
+  key: 'scrollPosition',
+  default: 0,
+});
+
 export const searchDataState = atom<string>({
   key: 'searchData',
   default: '',

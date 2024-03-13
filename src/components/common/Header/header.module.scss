@@ -5,14 +5,15 @@ header.headerWrap {
     top: 0;
     z-index: 9;
 
-    filter: drop-shadow(2px 3px 4px #000);
-
     background: {
         image: url('../../../assets/monsterBall.jpg');
         repeat: no-repeat;
         size: cover;
         position: center;
     }
+
+    filter: drop-shadow(2px 3px 4px #000);
+
 
     .header {
         max-width: 1200px;
