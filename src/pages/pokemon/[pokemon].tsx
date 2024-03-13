@@ -47,9 +47,7 @@ const PokemonDetailPage = () => {
               </div>
               <div className={styles.specWrap}>
                 <LazyLoadImage
-                  src={
-                    pokemon.data.sprites.other['official-artwork'].front_default
-                  }
+                  src={pokemon?.data.sprites.other.home.front_default}
                   alt={changeNameLanguage(lang, pokemon)}
                   width={200}
                   height={200}

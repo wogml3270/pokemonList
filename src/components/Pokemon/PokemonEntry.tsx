@@ -26,7 +26,9 @@ const PokemonEntry = ({ name }: { name: string }) => {
             </div>
             <div className={styles.entryImage}>
               <LazyLoadImage
-                src={pokemon?.data.sprites.other.home.front_default}
+                src={
+                  pokemon?.data.sprites.other['official-artwork'].front_default
+                }
                 alt={changeNameLanguage(lang, pokemon)}
               />
             </div>

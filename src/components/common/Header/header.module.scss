@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Nanum+Gothic&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100..900&display=swap');
+
 header.headerWrap {
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 9;
+
+    filter: drop-shadow(2px 3px 4px #000);
 
     background: {
         image: url('../../../assets/monsterBall.jpg');
@@ -19,14 +23,17 @@ header.headerWrap {
         padding: 1rem 0;
 
         h1 {
-            & img {
-                width: 170px;
-                height: 70px;
+            font-family: "Nanum Gothic", sans-serif;
+            font-weight: bold;
+            font-size: 40px;
+            text-transform: uppercase;
 
-                @media screen and (max-width: 768px) {
-                    width: 100px;
-                    height: 40px;
-                }
+            & a {
+                background: linear-gradient(#e0e0ff 0%, #ff7b7b 40%, #FF0000 100%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                text-shadow: 3px 3px 1px #3a3a3a60;
             }
         }
 

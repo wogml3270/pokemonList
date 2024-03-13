@@ -4,13 +4,24 @@
   justify-content: center;
   gap: 1rem;
   padding: 10px;
-  min-height: 200px;
+
+  @media screen and (max-width: 475px) {
+    position: relative;
+    min-height: 150px;
+    justify-content: space-evenly;
+  }
 
   & .entryTitle {
     display: flex;
     justify-content: space-between;
     padding: 0 10px;
     text-transform: capitalize;
+
+    @media screen and (max-width: 475px) {
+      justify-content: flex-start;
+      gap: 1rem;
+      align-items: center;
+    }
 
     & h2 {
       font-size: 1.25rem;
@@ -23,9 +34,20 @@
     }
   }
 
-  & .entryImage img {
-    width: 100%;
-    height: 100%;
+  & .entryImage {
+
+    @media screen and (max-width: 475px) {
+      max-width: 100px;
+      max-height: 100px;
+      position: absolute;
+      right: 10px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
   }
 
 }

@@ -1,19 +1,21 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import { useRecoilValue } from 'recoil';
+
+import { changeOptions } from '@/utils/changeOptions';
+import { languageState } from '@/core/atoms';
 
 import styles from './header.module.scss';
 import LanguageSelector from '../Language/LangSelector';
-import pokemonLogo from '@/assets/pokemonLogo.png';
 import SearchInput from './Search/SearchInput';
 
 const Header = () => {
+  const lang = useRecoilValue(languageState);
+
   return (
     <header className={styles.headerWrap}>
       <nav className={styles.header}>
         <h1>
-          <Link href='/'>
-            <Image src={pokemonLogo} alt='logo' />
-          </Link>
+          <Link href='/'>{changeOptions(lang, 'logo')}</Link>
         </h1>
         <SearchInput />
         <LanguageSelector />
