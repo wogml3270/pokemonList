@@ -10,7 +10,7 @@ import styles from './entry.module.scss';
 import Loading from '@/components/common/Loading';
 import PokemonType from './PokemonType';
 
-const PokemonEntry = ({ name }: { name: string }) => {
+const PokemonEntry = ({ name }: { name: string | number }) => {
   const { pokemon, isLoading } = usePokemon(name);
   const lang = useRecoilValue(languageState);
 

@@ -28,6 +28,8 @@ header.headerWrap {
             font-weight: bold;
             font-size: 40px;
             text-transform: uppercase;
+            width: 230px;
+            text-align: center;
 
             & a {
                 background: linear-gradient(#e0e0ff 0%, #ff7b7b 40%, #FF0000 100%);

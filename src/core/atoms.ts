@@ -49,5 +49,5 @@ export const sortState = atom<string>({
 
 export const languageState = atom<string>({
   key: 'language',
-  default: 'ko',
+  default: 'kor',
 });

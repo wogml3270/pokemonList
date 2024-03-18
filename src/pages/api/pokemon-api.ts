@@ -13,9 +13,9 @@ export const getPokemon = async (pokemonName: string | number) => {
 
   return {
     names: {
-      ko: findNameByLang('ko'),
-      en: findNameByLang('en'),
-      ja: findNameByLang('ja'),
+      kor: findNameByLang('ko'),
+      eng: findNameByLang('en'),
+      jap: findNameByLang('ja'),
     },
     data: response.data,
   };

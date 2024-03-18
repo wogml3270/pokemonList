@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 
 import { getPokemon } from '@/pages/api/pokemon-api';
 
-const usePokemon = (name: string) => {
+const usePokemon = (name: string | number) => {
   const {
     data: pokemon,
     isLoading,

@@ -1,12 +1,12 @@
 export const changeNameLanguage = (language: string, pokemon: any) => {
   switch (language) {
-    case 'ko':
-      return pokemon?.names.ko;
-    case 'en':
-      return pokemon?.names.en;
-    case 'ja':
-      return pokemon?.names.ja;
+    case 'kor':
+      return pokemon?.names.kor;
+    case 'eng':
+      return pokemon?.names.eng;
+    case 'jap':
+      return pokemon?.names.jap;
     default:
-      return pokemon?.names.ko;
+      return pokemon?.names.kor;
   }
 };

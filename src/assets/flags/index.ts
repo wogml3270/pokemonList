@@ -1,3 +1,4 @@
-export { default as jap } from './jap.svg';
-export { default as kor } from './kor.svg';
-export { default as eng } from './eng.svg';
+export { default as JAP } from './JAP.svg';
+export { default as KOR } from './KOR.svg';
+export { default as USA } from './USA.svg';
+export { default as UK } from './UK.svg';

@@ -1,23 +1,23 @@
-type Language = 'ko' | 'en' | 'ja' | string;
+type Language = 'kor' | 'eng' | 'jap' | string;
 type Text = 'logo' | 'types' | 'height' | 'weight' | 'placeholder';
 
 export const changeOptions = (language: Language, text: Text) => {
   const translations: Record<Language, Record<Text, string>> = {
-    ko: {
+    kor: {
       logo: '포켓몬 도감',
       types: '타입',
       height: '신장',
       weight: '체중',
       placeholder: '포켓몬 이름 또는 아이디를 입력해주세요',
     },
-    en: {
+    eng: {
       logo: 'Pokedex',
       types: 'Types',
       height: 'Height',
       weight: 'Weight',
       placeholder: 'Search Pokemon With Name or Id',
     },
-    ja: {
+    jap: {
       logo: 'ポケモン図鑑',
       types: 'タイプ',
       height: '身長',

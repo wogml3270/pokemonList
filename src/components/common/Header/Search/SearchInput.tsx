@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import Image from 'next/image';
 
@@ -9,6 +9,7 @@ import {
   searchInputState,
 } from '@/core/atoms';
 import { changeOptions } from '@/utils/changeOptions';
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 import styles from './search.module.scss';
 import searchIcon from '@/assets/searchIcon.svg';
@@ -18,6 +19,7 @@ const SearchInput = () => {
   const setSearch = useSetRecoilState(searchDataState);
   const [input, setInput] = useRecoilState(searchInputState);
   const [keywords, setKeywords] = useRecoilState(keywordsState);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (input) {
@@ -26,6 +28,10 @@ const SearchInput = () => {
       setKeywords([]);
     }
   }, [input]);
+
+  useOutsideClick(wrapperRef, () => {
+    setKeywords([]);
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -36,12 +42,19 @@ const SearchInput = () => {
     setKeywords([]);
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      searchResult();
+    }
+  };
+
   return (
-    <div className={styles.search}>
+    <div className={styles.searchContainer} ref={wrapperRef}>
       <input
         type='text'
         value={input}
         onChange={handleChange}
+        onKeyDown={handleKeyPress}
         placeholder={changeOptions(lang, 'placeholder')}
       />
       <button className={styles.searchButton} onClick={searchResult}>

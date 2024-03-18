@@ -45,9 +45,9 @@ const PokemonCard = ({ children }: CardComponentProps) => {
 
     if (isWideScreen) {
       const cards = document.querySelectorAll('.card');
-      cards.forEach((card) => {
-        card.addEventListener('mousemove', handleMouseMove);
-        card.addEventListener('mouseleave', handleMouseLeave);
+      cards.forEach((element) => {
+        element.addEventListener('mousemove', handleMouseMove);
+        element.addEventListener('mouseleave', handleMouseLeave);
       });
 
       return () => {
@@ -59,11 +59,7 @@ const PokemonCard = ({ children }: CardComponentProps) => {
     }
   }, [isWideScreen]);
 
-  return isWideScreen ? (
-    <div className='card'>{children}</div>
-  ) : (
-    <div>{children}</div>
-  );
+  return <div className={isWideScreen ? 'card' : ''}>{children}</div>;
 };
 
 export default PokemonCard;

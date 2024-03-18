@@ -4,10 +4,10 @@ import React, { useCallback, useRef } from 'react';
 import { getPokemonList } from '@/pages/api/pokemon-api';
 import styles from '@/styles/Home.module.scss';
 
-import PokemonEntry from '@/components/Pokemon/PokemonEntry';
+import Header from '@/components/common/Header';
 import Loading from '@/components/common/Loading';
 import PokemonCard from '@/components/Pokemon/PokemonCard';
-import Header from '@/components/common/Header';
+import PokemonEntry from '@/components/Pokemon/PokemonEntry';
 
 const Home = () => {
   const fetchPokemons = ({ pageParam = 1 }) => getPokemonList(pageParam);

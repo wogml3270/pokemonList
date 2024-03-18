@@ -1,5 +1,5 @@
 export const pokemonTypes: Record<string, Record<string, string>> = {
-  ko: {
+  kor: {
     bug: '벌레',
     dark: '악',
     dragon: '드래곤',
@@ -19,7 +19,7 @@ export const pokemonTypes: Record<string, Record<string, string>> = {
     steel: '강철',
     water: '물',
   },
-  en: {
+  eng: {
     bug: 'Bug',
     dark: 'Dark',
     dragon: 'Dragon',
@@ -39,7 +39,7 @@ export const pokemonTypes: Record<string, Record<string, string>> = {
     steel: 'Steel',
     water: 'Water',
   },
-  ja: {
+  jap: {
     bug: 'むし',
     dark: 'あく',
     dragon: 'ドラゴン',
