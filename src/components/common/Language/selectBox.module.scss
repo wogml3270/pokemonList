@@ -1,0 +1,52 @@
+.selectBox {
+    position: relative;
+    min-width: 70px;
+
+    .selectedLanguage {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        padding: 0.5rem;
+
+        & span {
+            text-transform: uppercase;
+        }
+
+        img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+    }
+
+    .dropdown {
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        z-index: 100;
+        overflow: hidden;
+
+        div {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: #f0f0f0;
+            }
+
+            img {
+                width: 20px;
+                height: auto;
+                margin-right: 5px;
+            }
+        }
+    }
+}
