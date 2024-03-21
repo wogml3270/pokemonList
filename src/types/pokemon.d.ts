@@ -8,10 +8,12 @@ export interface PokemonList {
 // 포켓몬 상세 페이지 타입 정의
 export interface Pokemon {
   id: number;
-  name: string;
-  ko: string;
-  en: string;
-  ja: string;
+  names: {
+    language: {
+      name: string;
+    };
+    name: string;
+  }[];
   types: {
     type: {
       name: string;
@@ -28,11 +30,34 @@ export interface Pokemon {
       };
       home: {
         front_default: string;
-        back_default: string;
-      };
-      showdown: {
-        front_default: string;
       };
     };
+  };
+  evolution_chain: {
+    url: string;
+  };
+}
+
+// 포켓몬 진화루트 타입 정의
+export interface PokemonEvolution {
+  id: number;
+  name: string;
+  chain: {
+    evolution_to: {
+      species: {
+        name: string;
+        url: string;
+      };
+      evolution_to: {
+        species: {
+          name: string;
+          url: string;
+        };
+      };
+    }[];
+  };
+  species: {
+    name: string;
+    url: string;
   };
 }
