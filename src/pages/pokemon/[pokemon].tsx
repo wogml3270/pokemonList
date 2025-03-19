@@ -30,14 +30,14 @@ const PokemonDetailPage = () => {
       </Head>
       <Header />
       <section className={styles.pokemonDetail}>
-        <button
-          type='button'
-          onClick={() => router.back()}
-          className={styles.previous}
-        >
-          <Image src={rollback} alt='back' />
-        </button>
         <div className={styles.wrap}>
+          <button
+            type='button'
+            onClick={() => router.back()}
+            className={styles.previous}
+          >
+            <Image src={rollback} alt='back' />
+          </button>
           {isLoading && <Loading />}
           {pokemon && (
             <>
@@ -82,6 +82,7 @@ const PokemonDetailPage = () => {
                   </div>
                 </div>
               </div>
+              <div>{/* 여기에 진화루트 추가 */}</div>
             </>
           )}
         </div>
