@@ -9,9 +9,9 @@ import {
 // 전역 캐시 객체 생성
 const globalCache = {
   pokemonDetails: {} as Record<string, any>,
-  pokemonList: {} as Record<number, PokemonList>,
+  pokemonList: {} as Record<string, PokemonList>,
   pokemonImages: {} as Record<number, string>,
-  evolutionChains: {} as Record<number, EvolutionChain>,
+  evolutionChains: {} as Record<string, EvolutionChain>,
 };
 
 interface PokemonNames {
@@ -32,7 +32,7 @@ interface PokemonDetails {
  * @throws API 요청 실패 시 오류 발생
  */
 export const getPokemon = async (
-  pokemonNameOrId: string | number,
+  pokemonNameOrId: string,
 ): Promise<PokemonDetails> => {
   const cacheKey = String(pokemonNameOrId);
 
@@ -76,33 +76,29 @@ export const getPokemon = async (
 /**
  * 페이지네이션된 포켓몬 목록을 가져오기
  * @param page - 페이지 번호 (1부터 시작)
- * @returns 페이지네이션된 포켓몬 목록 또는 더 이상 포켓몬이 없을 경우 null
+ * @param itemsPerPage - 페이지당 아이템 수 (기본값: 20)
+ * @returns 페이지네이션된 포켓몬 목록
  * @throws API 요청 실패 시 오류 발생
  */
 export const getPokemonList = async (
   page: number,
-): Promise<PokemonList | null> => {
+  itemsPerPage: number = 20,
+): Promise<PokemonList> => {
+  const cacheKey = `${page}_${itemsPerPage}`;
+
   // 전역 캐시에서 데이터 확인
-  if (globalCache.pokemonList[page]) {
-    return globalCache.pokemonList[page];
+  if (globalCache.pokemonList[cacheKey]) {
+    return globalCache.pokemonList[cacheKey];
   }
 
   try {
-    const offset = 20;
-    const totalPokemons = 251;
-    const startIndex = offset * (page - 1);
-    const limit = Math.min(offset, totalPokemons - startIndex);
-
-    if (limit <= 0) {
-      return null;
-    }
-
+    const offset = (page - 1) * itemsPerPage;
     const response = await api.get<PokemonList>(
-      `/pokemon?limit=${limit}&offset=${startIndex}`,
+      `/pokemon?limit=${itemsPerPage}&offset=${offset}`,
     );
 
     // 결과를 전역 캐시에 저장
-    globalCache.pokemonList[page] = response.data;
+    globalCache.pokemonList[cacheKey] = response.data;
     return response.data;
   } catch (error) {
     throw new Error(
@@ -138,7 +134,6 @@ export const getPokemonImage = async (id: number): Promise<string | null> => {
   }
 
   try {
-    // 이미지만 필요하므로 필요한 데이터만 요청하도록 최적화
     const response = await api.get<Pokemon>(`pokemon/${id}`);
     const imageUrl = response.data.sprites.other.home?.front_default || null;
 
@@ -157,34 +152,81 @@ export const getPokemonImage = async (id: number): Promise<string | null> => {
 
 /**
  * 포켓몬의 진화 체인 정보를 가져오기
- * @param speciesId - 포켓몬 종 ID
+ * @param speciesName - 포켓몬 종 ID
  * @returns 포켓몬의 진화 체인 정보
  * @throws API 요청 실패 시 오류 발생
  */
 export const getPokemonEvolutionChain = async (
-  speciesId: number,
+  speciesName: string,
 ): Promise<EvolutionChain> => {
   // 전역 캐시에서 데이터 확인
-  if (globalCache.evolutionChains[speciesId]) {
-    return globalCache.evolutionChains[speciesId];
+  if (globalCache.evolutionChains[speciesName]) {
+    return globalCache.evolutionChains[speciesName];
   }
 
   try {
+    const speciesResponse = await api.get<PokemonSpecies>(
+      `pokemon-species/${speciesName}`,
+    );
+    const evolutionChainUrl = speciesResponse.data.evolution_chain.url;
+    const evolutionResponse = await api.get<EvolutionChain>(evolutionChainUrl);
+
+    // 결과를 전역 캐시에 저장
+    globalCache.evolutionChains[speciesName] = evolutionResponse.data;
+    return evolutionResponse.data;
+  } catch (error) {
+    throw new Error(
+      `포켓몬 진화 체인 가져오기 실패: ${error instanceof Error ? error.message : String(error)}`,
+    );
+  }
+};
+
+/**
+ * 포켓몬의 진화 루트를 가져오기
+ * @param speciesName - 포켓몬 종 이름
+ * @returns 포켓몬의 진화 루트 배열 (각 단계의 정보와 조건 포함)
+ * @throws API 요청 실패 시 오류 발생
+ */
+export const getPokemonEvolutionRoute = async (
+  speciesName: string,
+): Promise<Array<{ name: string; id: number; condition?: string }>> => {
+  try {
     // 포켓몬 종 정보를 가져와서 진화 체인 URL 추출
     const speciesResponse = await api.get<PokemonSpecies>(
-      `pokemon-species/${speciesId}`,
+      `pokemon-species/${speciesName}`,
     );
     const evolutionChainUrl = speciesResponse.data.evolution_chain.url;
 
     // 진화 체인 정보 요청
     const evolutionResponse = await api.get<EvolutionChain>(evolutionChainUrl);
+    const evolutionChain = evolutionResponse.data;
 
-    // 결과를 전역 캐시에 저장
-    globalCache.evolutionChains[speciesId] = evolutionResponse.data;
-    return evolutionResponse.data;
+    const evolutionRoute: Array<{
+      name: string;
+      id: number;
+      condition?: string;
+    }> = [];
+
+    const extractEvolution = (chain: any) => {
+      const pokemonId = chain.species.url.split('/').slice(-2, -1)[0];
+
+      evolutionRoute.push({
+        name: chain.species.name,
+        id: parseInt(pokemonId, 10),
+      });
+
+      if (chain.evolves_to.length > 0) {
+        chain.evolves_to.forEach((evolution: any) =>
+          extractEvolution(evolution),
+        );
+      }
+    };
+
+    extractEvolution(evolutionChain.chain);
+    return evolutionRoute;
   } catch (error) {
     throw new Error(
-      `포켓몬 진화 체인 가져오기 실패: ${error instanceof Error ? error.message : String(error)}`,
+      `포켓몬 진화 루트 가져오기 실패: ${error instanceof Error ? error.message : String(error)}`,
     );
   }
 };

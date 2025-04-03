@@ -150,5 +150,6 @@
         "controlComponents": ["input"],
       },
     ],
+    // "react/no-array-index-key": "off", // 배열 index key 임시 비활성화
   },
 }

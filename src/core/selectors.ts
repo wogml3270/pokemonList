@@ -1,4 +1,4 @@
-import { selector } from 'recoil';
+import { selector, selectorFamily } from 'recoil';
 
 import axiosInstance from '@/pages/api/axiosInstance';
 
@@ -38,4 +38,17 @@ export const pokemonListState = selector({
       ),
     );
   },
+});
+
+export const paginatedPokemonListState = selectorFamily({
+  key: 'paginatedPokemonList',
+  get:
+    (page: number) =>
+    ({ get }) => {
+      const allPokemon = get(pokemonListState);
+      const ITEMS_PER_PAGE = 20;
+      const startIndex = (page - 1) * ITEMS_PER_PAGE;
+      const endIndex = startIndex + ITEMS_PER_PAGE;
+      return allPokemon.slice(startIndex, endIndex);
+    },
 });

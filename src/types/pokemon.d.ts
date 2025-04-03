@@ -9,9 +9,11 @@ export interface PokemonList {
 export interface Pokemon {
   id: number;
   name: string;
-  ko: string;
-  en: string;
-  ja: string;
+  names: {
+    ko: string;
+    en: string;
+    ja: string;
+  };
   types: {
     type: {
       name: string;
