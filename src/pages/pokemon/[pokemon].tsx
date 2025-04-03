@@ -3,11 +3,13 @@ import Head from 'next/head';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useRecoilValue } from 'recoil';
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 import { languageState } from '@/core/atoms';
 import usePokemon from '@/hooks/usePokemon';
 import { changeNameLanguage } from '@/utils/changeNameLanguage';
 import { changeOptions } from '@/utils/changeOptions';
+import useEvolution from '@/hooks/useEvolution';
 
 import styles from './detail.module.scss';
 import Loading from '@/components/common/Loading';
@@ -23,6 +25,8 @@ const PokemonDetailPage = () => {
   const lang = useRecoilValue(languageState);
 
   const { pokemon, isLoading } = usePokemon(pokemonName);
+
+  const { evolution } = useEvolution(pokemonName);
 
   return (
     <>
@@ -43,25 +47,25 @@ const PokemonDetailPage = () => {
           {pokemon && (
             <>
               <div className={styles.title}>
-                <span>No. {pokemon.data.id}</span>
+                <span>No. {pokemon.id}</span>
                 <h1>{changeNameLanguage(lang, pokemon)}</h1>
               </div>
               <div className={styles.specWrap}>
                 <LazyLoadImage
-                  src={pokemon?.data.sprites.other.home.front_default}
+                  src={pokemon.other.detail}
                   alt={changeNameLanguage(lang, pokemon)}
                   width={200}
                   height={200}
                 />
                 <div className={styles.gameImage}>
                   <LazyLoadImage
-                    src={pokemon.data.sprites.front_default}
+                    src={pokemon.front_icon}
                     alt={changeNameLanguage(lang, pokemon)}
                     width={100}
                     height={100}
                   />
                   <LazyLoadImage
-                    src={pokemon.data.sprites.back_default}
+                    src={pokemon.back_icon}
                     alt={changeNameLanguage(lang, pokemon)}
                     width={100}
                     height={100}
@@ -71,15 +75,15 @@ const PokemonDetailPage = () => {
                 <div className={styles.spec}>
                   <div className={styles.types}>
                     <strong>{changeOptions(lang, 'types')}</strong>
-                    <PokemonType pokemon={pokemon} />
+                    <PokemonType data={pokemon} />
                   </div>
                   <div className={styles.height}>
                     <strong>{changeOptions(lang, 'height')}</strong>
-                    <span>{pokemon.data.height * 10}cm</span>
+                    <span>{pokemon.height * 10}cm</span>
                   </div>
                   <div className={styles.weight}>
                     <strong>{changeOptions(lang, 'weight')}</strong>
-                    <span>{pokemon.data.weight / 10}kg</span>
+                    <span>{pokemon.weight / 10}kg</span>
                   </div>
                 </div>
               </div>

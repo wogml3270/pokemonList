@@ -21,18 +21,16 @@ const PokemonEntry = ({ name }: { name: string }) => {
         {pokemon && (
           <>
             <div className={styles.entryTitle}>
-              <h2>No. {pokemon?.data.id}</h2>
+              <h2>No. {pokemon.id}</h2>
               <span>{changeNameLanguage(lang, pokemon)}</span>
             </div>
             <div className={styles.entryImage}>
               <LazyLoadImage
-                src={
-                  pokemon?.data.sprites.other['official-artwork'].front_default
-                }
+                src={pokemon?.other.list}
                 alt={changeNameLanguage(lang, pokemon)}
               />
             </div>
-            <PokemonType pokemon={pokemon} />
+            <PokemonType data={pokemon} />
           </>
         )}
       </div>

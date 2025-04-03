@@ -230,3 +230,43 @@ export const getPokemonEvolutionRoute = async (
     );
   }
 };
+
+// GET) 포켓몬 진화루트
+export const getPokemonEvolution = async (
+  pokemonName: string | number,
+): Promise<EvolutionChain[] | null> => {
+  const response = await api.get<Pokemon>(`pokemon-species/${pokemonName}`);
+
+  if (!response.data.evolution_chain || !response.data.evolution_chain.url) {
+    return null;
+  }
+
+  const evolutionResponse = await api.get<PokemonEvolution>(
+    response.data.evolution_chain.url,
+  );
+
+  if (!evolutionResponse.data.chain) {
+    return null;
+  }
+
+  // 포켓몬의 진화 체인을 추출하는 재귀 함수
+  const extractEvolutionChain = (
+    chain: any,
+    evolutionChain: EvolutionChain[],
+  ) => {
+    if (!chain) return;
+
+    evolutionChain.push({ species: { name: chain.species.name } });
+
+    if (chain.evolves_to && chain.evolves_to.length > 0) {
+      chain.evolves_to.forEach((evolution: any) => {
+        extractEvolutionChain(evolution, evolutionChain);
+      });
+    }
+  };
+
+  const evolutionChain: EvolutionChain[] = [];
+  extractEvolutionChain(evolutionResponse.data.chain, evolutionChain);
+
+  return evolutionChain.length ? evolutionChain : null;
+};

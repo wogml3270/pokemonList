@@ -30,10 +30,6 @@ export interface Pokemon {
       };
       home: {
         front_default: string;
-        back_default: string;
-      };
-      showdown: {
-        front_default: string;
       };
     };
   };
