@@ -15,10 +15,11 @@
             width: 30px;
             height: 30px;
             border-radius: 5px;
-            border: 2px solid #000;
+            border: 1px solid #c0c0c0;
+            background: linear-gradient(#8ea8ff 0%, #b5c6ff 50%, #cdd8ff 100%);
 
             &:hover {
-                background-color: #8ea8ff;
+                background: linear-gradient(#cdd8ff 0%, #b5c6ff 50%, #8ea8ff 100%);
             }
         }
     }

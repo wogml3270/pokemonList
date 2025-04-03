@@ -1,0 +1,74 @@
+.evolutionRoute {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+
+    h3 {
+        text-align: center;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .evolutionSteps {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto; // 가로 스크롤 활성화
+        padding-bottom: 1rem; // 스크롤바가 컨텐츠를 가리지 않도록
+
+        &::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 4px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+            border-radius: 4px;
+        }
+    }
+
+    .evolutionStep {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        min-width: 120px; // 최소 너비 설정
+        text-align: center;
+        transition: transform 0.2s ease;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-5px);
+        }
+
+        img {
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .evolutionCondition {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.5rem;
+            background-color: #f0f0f0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+    }
+}

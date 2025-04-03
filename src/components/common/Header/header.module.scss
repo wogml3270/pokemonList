@@ -26,10 +26,9 @@ header.headerWrap {
         h1 {
             font-family: "Nanum Gothic", sans-serif;
             font-weight: bold;
-            font-size: 40px;
+            font-size: 30px;
             text-transform: uppercase;
-            width: 230px;
-            text-align: center;
+            max-width: 230px;
 
             & a {
                 background: linear-gradient(#e0e0ff 0%, #ff7b7b 40%, #FF0000 100%);

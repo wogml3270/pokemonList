@@ -1,18 +1,20 @@
 import { useQuery } from 'react-query';
 
-import { getPokemonEvolution } from '@/pages/api/pokemon-api';
+import { getPokemonEvolutionRoute } from '@/pages/api/pokemon-api';
 
-const useEvolution = (name: string | number) => {
+const useEvolution = (speciesName: string) => {
   const {
-    data: evolution,
-    isLoading: evolutionLoading,
-    isError: evolutionError,
-  } = useQuery(['evolution', name], () => getPokemonEvolution(name));
+    data: evolutionRoute,
+    isLoading,
+    isError,
+  } = useQuery(['evolution', speciesName], () =>
+    getPokemonEvolutionRoute(speciesName),
+  );
 
   return {
-    evolution,
-    evolutionLoading,
-    evolutionError,
+    evolutionRoute,
+    isLoading,
+    isError,
   };
 };
 

@@ -16,6 +16,7 @@ import Loading from '@/components/common/Loading';
 import Header from '@/components/common/Header';
 import PokemonType from '@/components/Pokemon/PokemonType';
 import rollback from '@/assets/rollback.svg';
+import EvolutionRoute from '@/components/Pokemon/EvolutionRoute';
 
 const PokemonDetailPage = () => {
   const router = useRouter();
@@ -34,14 +35,14 @@ const PokemonDetailPage = () => {
       </Head>
       <Header />
       <section className={styles.pokemonDetail}>
-        <button
-          type='button'
-          onClick={() => router.back()}
-          className={styles.previous}
-        >
-          <Image src={rollback} alt='back' />
-        </button>
         <div className={styles.wrap}>
+          <button
+            type='button'
+            onClick={() => router.back()}
+            className={styles.previous}
+          >
+            <Image src={rollback} alt='back' />
+          </button>
           {isLoading && <Loading />}
           {pokemon && (
             <>
@@ -86,11 +87,8 @@ const PokemonDetailPage = () => {
                   </div>
                 </div>
               </div>
-              {/* 포켓몬 진화 루트 */}
-              <div className={styles.evolution}>
-                {evolution?.map((item) => {
-                  return <div key={item.species.name}>{item.species.name}</div>;
-                })}
+              <div className={styles.evolutionSection}>
+                <EvolutionRoute speciesName={pokemon.data.name} />
               </div>
             </>
           )}

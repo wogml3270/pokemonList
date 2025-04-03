@@ -27,7 +27,7 @@ const SearchInput = () => {
     } else {
       setKeywords([]);
     }
-  }, [input]);
+  }, [input, setKeywords]);
 
   useOutsideClick(wrapperRef, () => {
     setKeywords([]);

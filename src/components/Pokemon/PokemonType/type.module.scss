@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-around;
     gap: 1rem;
-    font-size: 0.75rem;
+    font-size: 1rem;
 
     @media screen and (max-width: 475px) {
         justify-content: flex-start;
