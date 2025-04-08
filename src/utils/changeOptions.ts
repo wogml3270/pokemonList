@@ -1,5 +1,11 @@
 type Language = 'kor' | 'eng' | 'jap' | string;
-type Text = 'logo' | 'types' | 'height' | 'weight' | 'placeholder';
+type Text =
+  | 'logo'
+  | 'types'
+  | 'height'
+  | 'weight'
+  | 'placeholder'
+  | 'evolution';
 
 export const changeOptions = (language: Language, text: Text) => {
   const translations: Record<Language, Record<Text, string>> = {
@@ -9,6 +15,7 @@ export const changeOptions = (language: Language, text: Text) => {
       height: '신장',
       weight: '체중',
       placeholder: '포켓몬 이름 또는 아이디를 입력해주세요',
+      evolution: '진화루트',
     },
     eng: {
       logo: 'Pokedex',
@@ -16,6 +23,7 @@ export const changeOptions = (language: Language, text: Text) => {
       height: 'Height',
       weight: 'Weight',
       placeholder: 'Search Pokemon With Name or Id',
+      evolution: 'evolutionary route',
     },
     jap: {
       logo: 'ポケモン図鑑',
@@ -23,6 +31,7 @@ export const changeOptions = (language: Language, text: Text) => {
       height: '身長',
       weight: '体重',
       placeholder: 'ポケモンの名前またはID入力',
+      evolution: '進化ルート',
     },
   };
 

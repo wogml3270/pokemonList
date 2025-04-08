@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useRecoilValue } from 'recoil';
 
 import useEvolution from '@/hooks/useEvolution';
 import { getPokemonImage } from '@/pages/api/pokemon-api';
+import { languageState } from '@/core/atoms';
+import { changeOptions } from '@/utils/changeOptions';
 
 import styles from './evolution.module.scss';
 import Loading from '../common/Loading';
@@ -19,6 +22,8 @@ interface PokemonImage {
 const EvolutionRoute: React.FC<EvolutionRouteProps> = ({ speciesName }) => {
   const { evolutionRoute, isLoading, isError } = useEvolution(speciesName);
   const [pokemonImages, setPokemonImages] = useState<PokemonImage[]>([]);
+
+  const lang = useRecoilValue(languageState);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -38,14 +43,12 @@ const EvolutionRoute: React.FC<EvolutionRouteProps> = ({ speciesName }) => {
     fetchImages();
   }, [evolutionRoute]);
 
-  console.log(evolutionRoute);
-
   if (isLoading) return <Loading />;
   if (isError) return <div>Error loading evolution route</div>;
 
   return (
     <div className={styles.evolutionRoute}>
-      <h3>진화루트</h3>
+      <h3>{changeOptions(lang, 'evolution')}</h3>
       <div className={styles.evolutionSteps}>
         {evolutionRoute?.map((pokemon) => {
           const image = pokemonImages.find((img) => img.id === pokemon.id);
