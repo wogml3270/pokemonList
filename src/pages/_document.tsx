@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document';
+import Script from 'next/script';
 
 const Document = () => {
   return (
@@ -19,6 +20,18 @@ const Document = () => {
           name='keywords'
           content='web, HTML, CSS, Javascript, Typescript, React, NextJS'
         />
+        <Script
+          src='https://www.googletagmanager.com/gtag/js?id=G-F79MCK5Z88'
+          strategy='afterInteractive'
+        />
+        <Script id='google-analytics' strategy='afterInteractive'>
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F79MCK5Z88');
+        `}
+        </Script>
       </Head>
       <body>
         <Main />
